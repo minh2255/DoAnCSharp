@@ -3,20 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\Hp\\BakeryManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\DbInitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Data\\DbInitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\Products\\Details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\Products\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\ProductsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Controllers\\ProductsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Models\\ViewModels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Models\\ViewModels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Web\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\PasswordHasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BakeryManagement.Data\\PasswordHasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,53 +59,144 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DbInitializer.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\DbInitializer.cs",
-              "RelativeDocumentMoniker": "BakeryManagement.Data\\DbInitializer.cs",
-              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\DbInitializer.cs",
-              "RelativeToolTip": "BakeryManagement.Data\\DbInitializer.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAADYAAACEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T08:26:09.255Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PasswordHasher.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\PasswordHasher.cs",
-              "RelativeDocumentMoniker": "BakeryManagement.Data\\PasswordHasher.cs",
-              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Data\\PasswordHasher.cs",
-              "RelativeToolTip": "BakeryManagement.Data\\PasswordHasher.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T08:22:36.31Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Program.cs",
-              "RelativeDocumentMoniker": "BakeryManagement.Web\\Program.cs",
-              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Program.cs",
-              "RelativeToolTip": "BakeryManagement.Web\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T04:02:47.461Z",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Details.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\Products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Details.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\Products\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T02:31:28.227Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\appsettings.json",
-              "RelativeDocumentMoniker": "BakeryManagement.Web\\appsettings.json",
-              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\appsettings.json",
-              "RelativeToolTip": "BakeryManagement.Web\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-10-12T03:54:27.224Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\Products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\Products\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAgAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T02:22:29.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "BakeryManagement.Web\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAswCMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T02:04:44.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T01:52:07.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "BakeryManagement.Web\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T01:49:09.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ProductCard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\Shared\\_ProductCard.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T01:35:12.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAA8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T01:26:48.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "BakeryManagement.Web\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-20T01:24:06.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ViewModels.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Models\\ViewModels.cs",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Models\\ViewModels.cs",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Models\\ViewModels.cs",
+              "RelativeToolTip": "BakeryManagement.Web\\Models\\ViewModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T01:19:08.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "BakeryManagement.Web\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-10-20T01:10:28.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Program.cs",
+              "RelativeDocumentMoniker": "BakeryManagement.Web\\Program.cs",
+              "ToolTip": "C:\\Users\\Hp\\BakeryManagement\\BakeryManagement.Web\\Program.cs",
+              "RelativeToolTip": "BakeryManagement.Web\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T09:28:17.192Z",
               "EditorCaption": ""
             }
           ]

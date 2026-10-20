@@ -72,7 +72,6 @@ C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\rjsmcshtml.d
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\scopedcss\bundle\BakeryManagement.Web.styles.css
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\scopedcss\projectbundle\BakeryManagement.Web.bundle.scp.css
-C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\compressed\pc9mnkqvf0-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\compressed\hefpn78s8x-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\compressed\omzt80gmmc-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\compressed\tivfj7pvq8-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -147,3 +146,6 @@ C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\refint\Baker
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\BakeryManagement.Web.pdb
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\BakeryManagement.Web.genruntimeconfig.cache
 C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\ref\BakeryManagement.Web.dll
+C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\BakeryManagement.Web.sourcelink.json
+C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+C:\Users\Hp\BakeryManagement\BakeryManagement.Web\obj\Debug\net10.0\compressed\pc9mnkqvf0-{0}-72dpu2zq2p-72dpu2zq2p.gz

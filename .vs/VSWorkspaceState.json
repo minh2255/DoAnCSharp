@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BakeryManagement.Data"
+    "\\BakeryManagement.Web",
+    "\\BakeryManagement.Web\\Views",
+    "\\BakeryManagement.Web\\Views\\Products"
   ],
-  "SelectedNode": "\\BakeryManagement.Data\\BakeryDbContext.cs",
+  "SelectedNode": "\\BakeryManagement.Web\\Views\\Products\\Details.cshtml",
   "PreviewInSolutionExplorer": false
 }

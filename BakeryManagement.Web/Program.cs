@@ -36,39 +36,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-// THỬ NGHIỆM (sẽ xóa ở giai đoạn sau)
-app.MapGet("/test", (AuthService auth, ProductService products) =>
-{
-    var staff = auth.LoginStaff("admin", "Admin@123");
-    var wrong = auth.LoginStaff("admin", "saimatkhau");
-    var (items, total) = products.Search("bánh", null, 1, 5, true);
-    return Results.Json(new
-    {
-        dangNhapDung = staff != null,
-        quyen = staff?.Role.RoleName,
-        dangNhapSai = wrong == null,
-        soKetQuaTimBanh = total,
-        monDauTien = items.Select(p => p.Name)
-    });
-});
-
-app.MapGet("/test-order", (AuthService auth, ProductService products, OrderService orders) =>
-{
-    var c = auth.RegisterCustomer("Khách thử", $"thu{DateTime.Now.Ticks}@mail.com", "123456", "0900000000", "TP.HCM");
-    var p = products.Search(null, null, 1, 1, true).Items[0];
-    int truoc = p.Stock;
-
-    var o = orders.PlaceOrder(c.CustomerId, new List<(int, int)> { (p.ProductId, 2) }, "123 Nguyễn Huệ", "0900000000", "thử");
-    int sauDat = products.Get(p.ProductId).Stock;
-    decimal tong = o.Total;
-
-    string loiQuaSoLuong;
-    try { orders.PlaceOrder(c.CustomerId, new List<(int, int)> { (p.ProductId, 99999) }, "x", "0900000000", ""); loiQuaSoLuong = "KHÔNG BÁO LỖI (sai!)"; }
-    catch (InvalidOperationException ex) { loiQuaSoLuong = ex.Message; }
-
-    orders.UpdateStatus(o.OrderId, OrderStatus.Cancelled);
-    int sauHuy = products.Get(p.ProductId).Stock;
-
-    return Results.Json(new { sanPham = p.Name, tonTruoc = truoc, tonSauDat = sauDat, tongTien = tong, loiQuaSoLuong, tonSauHuy = sauHuy });
-});
 app.Run();

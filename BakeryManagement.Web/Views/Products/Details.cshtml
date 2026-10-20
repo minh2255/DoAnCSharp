@@ -1,0 +1,27 @@
+@model Product
+@{ ViewData["Title"] = Model.Name; }
+
+<div class="row g-4">
+  <div class="col-md-5">
+    <div class="product-img" style="height:320px;border-radius:1rem">
+      @if (!string.IsNullOrEmpty(Model.ImageUrl))
+      {
+          <img src="@Model.ImageUrl" alt="@Model.Name" />
+      }
+      else
+      {
+          <span style="font-size:8rem">🍰</span>
+      }
+    </div>
+  </div>
+  <div class="col-md-7">
+    <small class="text-muted">@Model.Category?.Name</small>
+    <h2>@Model.Name</h2>
+    <div class="price fs-3 mb-3">@Model.Price.ToString("N0") ₫</div>
+    <p>@Model.Description</p>
+    <p>Tình trạng: @(Model.Stock > 0 ? $"Còn {Model.Stock} sản phẩm" : "Hết hàng")</p>
+
+
+    <a class="btn btn-link mt-3" asp-action="Index">← Quay lại danh sách</a>
+  </div>
+</div>
