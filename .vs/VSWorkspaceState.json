@@ -3,8 +3,8 @@
     "",
     "\\BakeryManagement.Web",
     "\\BakeryManagement.Web\\Views",
-    "\\BakeryManagement.Web\\Views\\Products"
+    "\\BakeryManagement.Web\\Views\\Shared"
   ],
-  "SelectedNode": "\\BakeryManagement.Web\\Views\\Products\\Details.cshtml",
+  "SelectedNode": "\\BakeryManagement.sln",
   "PreviewInSolutionExplorer": false
 }

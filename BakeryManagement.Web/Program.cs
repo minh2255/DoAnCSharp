@@ -9,6 +9,9 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", o => { o.LoginPath = "/Account/Login"; });
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
@@ -26,7 +29,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

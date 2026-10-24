@@ -1,0 +1,41 @@
+@model List<Order>
+@{ ViewData["Title"] = "Đơn hàng của tôi"; }
+
+<h3>Đơn hàng của tôi</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Bạn chưa có đơn hàng nào.</div>
+}
+
+@foreach (var o in Model)
+{
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">
+      <span><b>Đơn #@o.OrderId</b> – @o.OrderDate.ToString("dd/MM/yyyy HH:mm")</span>
+      <span class="badge @(o.Status == OrderStatus.Cancelled ? "bg-danger" : o.Status == OrderStatus.Completed ? "bg-success" : "bg-warning text-dark")">@o.Status</span>
+    </div>
+    <ul class="list-group list-group-flush">
+      @foreach (var d in o.Details)
+      {
+        <li class="list-group-item d-flex justify-content-between">
+          <span>@d.Product.Name × @d.Quantity</span>
+          <span>@((d.Quantity * d.UnitPrice).ToString("N0")) ₫</span>
+        </li>
+      }
+    </ul>
+    <div class="card-footer d-flex justify-content-between align-items-center">
+      <span>Giao đến: @o.ShippingAddress – @o.Phone</span>
+      <span>
+        <b class="price">@o.Total.ToString("N0") ₫</b>
+        @if (o.Status == OrderStatus.Pending)
+        {
+          <form asp-action="Cancel" method="post" class="d-inline ms-2" onsubmit="return confirm('Hủy đơn này?')">
+            <input type="hidden" name="id" value="@o.OrderId" />
+            <button class="btn btn-sm btn-outline-danger">Hủy đơn</button>
+          </form>
+        }
+      </span>
+    </div>
+  </div>
+}

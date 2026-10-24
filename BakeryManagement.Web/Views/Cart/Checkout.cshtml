@@ -1,0 +1,29 @@
+@model CheckoutVm
+@{ ViewData["Title"] = "Thanh toán"; }
+
+<h3>Thanh toán</h3>
+<div class="row g-4">
+  <div class="col-md-6">
+    <form asp-action="Checkout" method="post">
+      <div asp-validation-summary="All" class="text-danger"></div>
+      <div class="mb-3"><label class="form-label">Địa chỉ giao hàng</label><input asp-for="Address" class="form-control" /></div>
+      <div class="mb-3"><label class="form-label">Số điện thoại</label><input asp-for="Phone" class="form-control" /></div>
+      <div class="mb-3"><label class="form-label">Ghi chú</label>
+        <textarea asp-for="Note" class="form-control" rows="3" placeholder="Ví dụ: ghi chữ lên bánh, giờ giao..."></textarea></div>
+      <button class="btn btn-brand">Xác nhận đặt hàng (thanh toán khi nhận)</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Đơn hàng của bạn</div>
+      <ul class="list-group list-group-flush">
+        @foreach (var l in Model.Lines)
+        {
+          <li class="list-group-item d-flex justify-content-between"><span>@l.Product.Name × @l.Qty</span><span>@l.Total.ToString("N0") ₫</span></li>
+        }
+        <li class="list-group-item d-flex justify-content-between fw-bold">
+          <span>Tổng</span><span class="price">@Model.Lines.Sum(x => x.Total).ToString("N0") ₫</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

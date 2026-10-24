@@ -11,3 +11,4 @@ C:\Users\Hp\BakeryManagement\BakeryManagement.Data\obj\Debug\net10.0\refint\Bake
 C:\Users\Hp\BakeryManagement\BakeryManagement.Data\obj\Debug\net10.0\BakeryManagement.Data.pdb
 C:\Users\Hp\BakeryManagement\BakeryManagement.Data\obj\Debug\net10.0\ref\BakeryManagement.Data.dll
 C:\Users\Hp\BakeryManagement\BakeryManagement.Data\obj\Debug\net10.0\BakeryManagement.Data.sourcelink.json
+C:\Users\Hp\BakeryManagement\BakeryManagement.Data\obj\Debug\net10.0\BakeryMa.A1EEDA22.Up2Date
