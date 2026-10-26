@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\BakeryManagement.Admin",
     "\\BakeryManagement.Web",
+    "\\BakeryManagement.Web\\Models",
     "\\BakeryManagement.Web\\Views",
     "\\BakeryManagement.Web\\Views\\Shared"
   ],
-  "SelectedNode": "\\BakeryManagement.sln",
+  "SelectedNode": "\\BakeryManagement.Admin\\BakeryManagement.Admin.csproj",
   "PreviewInSolutionExplorer": false
 }

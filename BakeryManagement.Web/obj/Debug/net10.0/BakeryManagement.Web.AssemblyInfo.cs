@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BakeryManagement.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce4982a6662ed59e37e68528316696c9fce85ace")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d3f43fc1f96dd9b71627e16726b02efffa28359")]
 [assembly: System.Reflection.AssemblyProductAttribute("BakeryManagement.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BakeryManagement.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
