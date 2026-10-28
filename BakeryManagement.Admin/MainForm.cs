@@ -39,15 +39,21 @@ public class MainForm : Form
         }
 
         // PHÂN QUYỀN: Admin thấy tất cả; Staff chỉ thấy Tổng quan, Đơn hàng, Khách hàng
-        AddTab("📊 Tổng quan", new PlaceholderTab("Tổng quan"));
+        AddTab("📊 Tổng quan", new DashboardTab());
         if (isAdmin)
         {
-            AddTab("🍰 Sản phẩm", new PlaceholderTab("Sản phẩm"));
-            AddTab("🗂 Danh mục", new PlaceholderTab("Danh mục"));
+            AddTab("🍰 Sản phẩm", new ProductsTab());
+            AddTab("🗂 Danh mục", new CategoriesTab());
         }
-        AddTab("🧾 Đơn hàng", new PlaceholderTab("Đơn hàng"));
-        AddTab("👤 Khách hàng", new PlaceholderTab("Khách hàng"));
-        if (isAdmin) AddTab("🔑 Tài khoản", new PlaceholderTab("Tài khoản"));
+        AddTab("🧾 Đơn hàng", new OrdersTab());
+        AddTab("👤 Khách hàng", new CustomersTab());
+        if (isAdmin) AddTab("🔑 Tài khoản", new UsersTab(user.UserId));
+
+        // Mỗi lần chuyển tab Tổng quan thì làm mới số liệu
+        tabs.SelectedIndexChanged += (s, e) =>
+        {
+            if (tabs.SelectedTab.Controls[0] is DashboardTab d) d.LoadData();
+        };
 
         var menu = new MenuStrip();
         var logout = new ToolStripMenuItem("Đăng xuất");

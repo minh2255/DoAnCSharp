@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BakeryManagement.Admin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d3f43fc1f96dd9b71627e16726b02efffa28359")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03637be3a8b24a5caff67deb0fbdfb894a64caaa")]
 [assembly: System.Reflection.AssemblyProductAttribute("BakeryManagement.Admin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BakeryManagement.Admin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
