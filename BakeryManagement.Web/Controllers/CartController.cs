@@ -38,7 +38,7 @@ public class CartController : Controller
     public IActionResult Index() => View(Lines());
 
     [HttpPost, ValidateAntiForgeryToken]
-    public IActionResult Add(int id, int qty = 1, string returnUrl = null)
+    public IActionResult Add(int id, int qty = 1, string returnUrl = null, bool buyNow = false)
     {
         var p = _products.Get(id);
         if (p == null || !p.IsActive) return NotFound();
@@ -59,6 +59,7 @@ public class CartController : Controller
             SaveCart(cart);
             TempData["Success"] = $"Đã thêm '{p.Name}' vào giỏ hàng.";
         }
+        if (buyNow) return RedirectToAction(nameof(Checkout));
         return Url.IsLocalUrl(returnUrl) ? Redirect(returnUrl) : RedirectToAction(nameof(Index));
     }
 

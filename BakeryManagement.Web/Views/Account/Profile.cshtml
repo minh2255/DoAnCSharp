@@ -1,0 +1,16 @@
+@model ProfileVm
+@{ ViewData["Title"] = "Hồ sơ của tôi"; }
+<div class="row justify-content-center"><div class="col-md-6">
+  <h3>Hồ sơ của tôi</h3>
+  <form asp-action="Profile" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3"><label class="form-label">Email (dùng để đăng nhập)</label>
+      <input class="form-control" value="@Model.Email" disabled /></div>
+    <div class="mb-3"><label class="form-label">Họ tên</label><input asp-for="FullName" class="form-control" /></div>
+    <div class="mb-3"><label class="form-label">Số điện thoại</label><input asp-for="Phone" class="form-control" /></div>
+    <div class="mb-3"><label class="form-label">Địa chỉ giao hàng mặc định</label><input asp-for="Address" class="form-control" /></div>
+    <button class="btn btn-brand w-100">Lưu thay đổi</button>
+  </form>
+  <hr />
+  <a asp-action="ChangePassword" class="btn btn-outline-secondary w-100">Đổi mật khẩu</a>
+</div></div>

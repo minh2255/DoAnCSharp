@@ -65,6 +65,7 @@ public class Customer
     [StringLength(20)] public string Phone { get; set; }
     [StringLength(250)] public string Address { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public bool IsActive { get; set; } = true;
 
     public List<Order> Orders { get; set; } = new();
 }

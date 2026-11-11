@@ -19,7 +19,16 @@ public class AuthService
     public Customer LoginCustomer(string email, string password)
     {
         var c = _db.Customers.FirstOrDefault(x => x.Email == email);
-        return c != null && PasswordHasher.Verify(password, c.PasswordHash) ? c : null;
+        if (c == null || !PasswordHasher.Verify(password, c.PasswordHash)) return null;
+        if (!c.IsActive) throw new InvalidOperationException("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ cửa hàng.");
+        return c;
+    }
+
+    public void SetCustomerActive(int id, bool active)
+    {
+        var c = _db.Customers.Find(id) ?? throw new InvalidOperationException("Không tìm thấy khách hàng.");
+        c.IsActive = active;
+        _db.SaveChanges();
     }
 
     public Customer RegisterCustomer(string fullName, string email, string password, string phone, string address)
@@ -42,4 +51,40 @@ public class AuthService
     }
 
     public Customer GetCustomer(int id) => _db.Customers.Find(id);
+
+    public void UpdateProfile(int id, string fullName, string phone, string address)
+    {
+        var c = _db.Customers.Find(id) ?? throw new InvalidOperationException("Không tìm thấy tài khoản.");
+        if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentException("Họ tên không được để trống.");
+        c.FullName = fullName.Trim();
+        c.Phone = string.IsNullOrWhiteSpace(phone) ? null : phone.Trim();
+        c.Address = string.IsNullOrWhiteSpace(address) ? null : address.Trim();
+        _db.SaveChanges();
+    }
+
+    public void ChangePassword(int id, string currentPassword, string newPassword)
+    {
+        var c = _db.Customers.Find(id) ?? throw new InvalidOperationException("Không tìm thấy tài khoản.");
+        if (!PasswordHasher.Verify(currentPassword, c.PasswordHash))
+            throw new InvalidOperationException("Mật khẩu hiện tại không đúng.");
+        SetPassword(c, newPassword);
+    }
+
+    public Customer FindCustomerByEmail(string email)
+        => _db.Customers.FirstOrDefault(x => x.Email == email.Trim().ToLower());
+
+    /// Đặt mật khẩu mới (dùng cho quên mật khẩu, đã xác thực bằng token).
+    public void ResetPassword(int id, string newPassword)
+    {
+        var c = _db.Customers.Find(id) ?? throw new InvalidOperationException("Không tìm thấy tài khoản.");
+        SetPassword(c, newPassword);
+    }
+
+    private void SetPassword(Customer c, string newPassword)
+    {
+        if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 6)
+            throw new ArgumentException("Mật khẩu tối thiểu 6 ký tự.");
+        c.PasswordHash = PasswordHasher.Hash(newPassword);
+        _db.SaveChanges();
+    }
 }

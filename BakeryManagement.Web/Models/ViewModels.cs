@@ -58,3 +58,30 @@ public class CheckoutVm
     public string Note { get; set; }
     public List<CartLine> Lines { get; set; } = new();
 }
+
+public class ProfileVm
+{
+    public string Email { get; set; }   // chỉ hiển thị, không cho sửa
+    [Required(ErrorMessage = "Nhập họ tên")] public string FullName { get; set; }
+    [Phone(ErrorMessage = "Số điện thoại không hợp lệ")] public string Phone { get; set; }
+    public string Address { get; set; }
+}
+
+public class ChangePasswordVm
+{
+    [Required(ErrorMessage = "Nhập mật khẩu hiện tại"), DataType(DataType.Password)] public string CurrentPassword { get; set; }
+    [Required(ErrorMessage = "Nhập mật khẩu mới"), MinLength(6, ErrorMessage = "Tối thiểu 6 ký tự"), DataType(DataType.Password)] public string NewPassword { get; set; }
+    [Compare("NewPassword", ErrorMessage = "Mật khẩu nhập lại không khớp"), DataType(DataType.Password)] public string ConfirmPassword { get; set; }
+}
+
+public class ForgotPasswordVm
+{
+    [Required(ErrorMessage = "Nhập email"), EmailAddress(ErrorMessage = "Email không hợp lệ")] public string Email { get; set; }
+}
+
+public class ResetPasswordVm
+{
+    public string Token { get; set; }
+    [Required(ErrorMessage = "Nhập mật khẩu mới"), MinLength(6, ErrorMessage = "Tối thiểu 6 ký tự"), DataType(DataType.Password)] public string NewPassword { get; set; }
+    [Compare("NewPassword", ErrorMessage = "Mật khẩu nhập lại không khớp"), DataType(DataType.Password)] public string ConfirmPassword { get; set; }
+}

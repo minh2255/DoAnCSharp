@@ -1,5 +1,7 @@
 using BakeryManagement.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +10,24 @@ builder.Services.AddDbContext<BakeryDbContext>(o => o.UseSqlServer(builder.Confi
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 builder.Services.AddSession();
-builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", o => { o.LoginPath = "/Account/Login"; });
+builder.Services.AddAuthentication("Cookies").AddCookie("Cookies", o =>
+{
+    o.LoginPath = "/Account/Login";
+    o.Events.OnValidatePrincipal = async ctx =>
+    {
+        var idText = ctx.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!int.TryParse(idText, out var id)) return;
+        var db = ctx.HttpContext.RequestServices.GetRequiredService<BakeryDbContext>();
+        var active = await db.Customers.AnyAsync(c => c.CustomerId == id && c.IsActive);
+        if (!active)
+        {
+            ctx.RejectPrincipal();
+            await ctx.HttpContext.SignOutAsync("Cookies");
+        }
+    };
+});
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
