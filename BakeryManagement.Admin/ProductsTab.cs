@@ -16,7 +16,7 @@ class ProductsTab : UserControl
         bar.Controls.Add(UI.Btn("➕ Thêm", (s, e) => Edit(null)));
         bar.Controls.Add(UI.Btn("✏ Sửa", (s, e) => EditSelected()));
         bar.Controls.Add(UI.Btn("🗑 Xóa", (s, e) => DeleteSelected()));
-
+        bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));
         Controls.Add(_g);
         Controls.Add(bar);
 

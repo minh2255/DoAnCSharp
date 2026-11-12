@@ -41,8 +41,8 @@ public class AuthService
         {
             FullName = fullName.Trim(),
             Email = email,
-            Phone = phone,
-            Address = address,
+            Phone = phone ?? "",
+            Address = address ?? "",
             PasswordHash = PasswordHasher.Hash(password)
         };
         _db.Customers.Add(c);
@@ -57,8 +57,8 @@ public class AuthService
         var c = _db.Customers.Find(id) ?? throw new InvalidOperationException("Không tìm thấy tài khoản.");
         if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentException("Họ tên không được để trống.");
         c.FullName = fullName.Trim();
-        c.Phone = string.IsNullOrWhiteSpace(phone) ? null : phone.Trim();
-        c.Address = string.IsNullOrWhiteSpace(address) ? null : address.Trim();
+        c.Phone = string.IsNullOrWhiteSpace(phone) ? "" : phone.Trim();
+        c.Address = string.IsNullOrWhiteSpace(address) ? "" : address.Trim();
         _db.SaveChanges();
     }
 

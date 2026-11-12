@@ -19,7 +19,7 @@ public class OrderService
             CustomerId = customerId,
             ShippingAddress = address,
             Phone = phone,
-            Note = note,
+            Note = note ?? "",
             OrderDate = DateTime.Now,
             Status = OrderStatus.Pending
         };

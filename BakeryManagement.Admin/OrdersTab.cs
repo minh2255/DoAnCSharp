@@ -21,6 +21,7 @@ class OrdersTab : UserControl
         bar.Controls.Add(UI.Btn("Lọc", (s, e) => LoadData()));
         bar.Controls.Add(UI.Btn("🔍 Chi tiết", (s, e) => ShowDetail()));
         bar.Controls.Add(UI.Btn("🔄 Đổi trạng thái", (s, e) => ChangeStatus()));
+        bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));
         Controls.Add(_g);
         Controls.Add(bar);
         _g.CellDoubleClick += (s, e) => ShowDetail();

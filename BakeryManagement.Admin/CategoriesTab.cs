@@ -13,6 +13,7 @@ class CategoriesTab : UserControl
         bar.Controls.Add(UI.Btn("➕ Thêm", (s, e) => Edit(null)));
         bar.Controls.Add(UI.Btn("✏ Sửa", (s, e) => { var id = UI.SelectedId(_g); if (id != null) Edit(id); }));
         bar.Controls.Add(UI.Btn("🗑 Xóa", (s, e) => Delete()));
+        bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));
         Controls.Add(_g);
         Controls.Add(bar);
         _g.CellDoubleClick += (s, e) => { var id = UI.SelectedId(_g); if (id != null) Edit(id); };

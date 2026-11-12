@@ -15,17 +15,18 @@ class DashboardTab : UserControl
 
     public DashboardTab()
     {
-        var header = new Label
-        {
-            Text = "Top sản phẩm bán chạy",
-            Dock = DockStyle.Top,
-            Height = 30,
-            Font = new Font("Segoe UI", 11, FontStyle.Bold),
-            Padding = new Padding(15, 5, 0, 0)
+        var hdr = new Label { 
+            Text = "Top sản phẩm bán chạy", 
+            Dock = DockStyle.Top, Height = 30, 
+            Font = new Font("Segoe UI", 11, FontStyle.Bold), 
+            Padding = new Padding(15, 5, 0, 0) 
         };
-        Controls.Add(_top);
-        Controls.Add(header);
-        Controls.Add(_stats);
+        var bar = UI.Bar();
+        bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));
+        Controls.Add(_top); 
+        Controls.Add(hdr); 
+        Controls.Add(_stats); 
+        Controls.Add(bar);
         LoadData();
     }
 

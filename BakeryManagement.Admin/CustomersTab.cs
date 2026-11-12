@@ -13,6 +13,9 @@ class CustomersTab : UserControl
         bar.Controls.Add(new Label { Text = "Tìm kiếm:", AutoSize = true, Margin = new Padding(3, 9, 3, 0) });
         bar.Controls.Add(_q); bar.Controls.Add(UI.Btn("Tìm", (s, e) => LoadData()));
         bar.Controls.Add(UI.Btn("🔒 Khóa / 🔓 Mở khóa", (s, e) => Toggle()));
+        bar.Controls.Add(UI.Btn("🔒 Khóa / 🔓 Mở khóa", (s, e) => Toggle()));
+        bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));      
+        Controls.Add(_g); Controls.Add(bar);
         Controls.Add(_g); Controls.Add(bar);
         _q.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) LoadData(); };
         LoadData();
@@ -51,7 +54,18 @@ class CustomersTab : UserControl
             var c = db.Customers.Find(id.Value);
             if (c == null) return;
             var open = !c.IsActive;      // đang khóa thì mở, đang mở thì khóa
-            if (!UI.Confirm($"{(open ? "Mở khóa" : "Khóa")} tài khoản của '{c.FullName}'?")) return;
+
+            var msg = $"{(open ? "Mở khóa" : "Khóa")} tài khoản của '{c.FullName}'?";
+            if (!open)
+            {
+                var pending = db.Orders.Count(o => o.CustomerId == c.CustomerId
+                    && o.Status != OrderStatus.Completed && o.Status != OrderStatus.Cancelled);
+                if (pending > 0)
+                    msg += $"\n\nKhách này đang có {pending} đơn chưa hoàn thành. Đơn vẫn được xử lý bình thường, " +
+                           "nhưng khách sẽ không đăng nhập để theo dõi hay hủy đơn được.";
+            }
+            if (!UI.Confirm(msg)) return;
+
             c.IsActive = open;
             db.SaveChanges();
             LoadData();
