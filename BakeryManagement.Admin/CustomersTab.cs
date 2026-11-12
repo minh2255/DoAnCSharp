@@ -13,7 +13,6 @@ class CustomersTab : UserControl
         bar.Controls.Add(new Label { Text = "Tìm kiếm:", AutoSize = true, Margin = new Padding(3, 9, 3, 0) });
         bar.Controls.Add(_q); bar.Controls.Add(UI.Btn("Tìm", (s, e) => LoadData()));
         bar.Controls.Add(UI.Btn("🔒 Khóa / 🔓 Mở khóa", (s, e) => Toggle()));
-        bar.Controls.Add(UI.Btn("🔒 Khóa / 🔓 Mở khóa", (s, e) => Toggle()));
         bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));      
         Controls.Add(_g); Controls.Add(bar);
         Controls.Add(_g); Controls.Add(bar);
