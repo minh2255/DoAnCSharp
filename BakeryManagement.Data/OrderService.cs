@@ -71,6 +71,10 @@ public class OrderService
 
         if (o.Status == OrderStatus.Cancelled)
             throw new InvalidOperationException("Đơn đã hủy, không thể đổi trạng thái.");
+        if (o.Status == OrderStatus.Completed)
+            throw new InvalidOperationException("Đơn đã hoàn thành, không thể đổi trạng thái.");
+        if (!OrderStatus.CanChange(o.Status, newStatus))
+            throw new InvalidOperationException($"Không thể chuyển từ '{o.Status}' sang '{newStatus}'.");
 
         if (newStatus == OrderStatus.Cancelled)
             foreach (var d in o.Details)

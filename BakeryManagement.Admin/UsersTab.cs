@@ -40,11 +40,19 @@ class UsersTab : UserControl
         catch (Exception ex) { UI.Error(ex); }
     }
 
+    // Số Admin đang hoạt động, không tính người có mã userId
+    private static int OtherActiveAdmins(BakeryDbContext db, int userId) =>
+        db.Users.Count(x => x.UserId != userId && x.IsActive && x.Role.RoleName == "Admin");
+
     private void Edit(int? id)
     {
         using var db = Db.Create();
         var u = id.HasValue ? db.Users.Find(id.Value) : new User();
         var roles = db.Roles.ToList().Select(r => new KeyValuePair<int, string>(r.RoleId, r.RoleName)).ToList();
+
+        // Trạng thái ban đầu của người này (ghi lại trước khi sửa)
+        var wasActiveAdmin = id.HasValue && u.IsActive
+            && db.Roles.Any(r => r.RoleId == u.RoleId && r.RoleName == "Admin");
 
         using var f = new FormDialog(id.HasValue ? "Sửa tài khoản" : "Thêm tài khoản");
         f.AddText("user", "Tài khoản", u.Username);
@@ -65,15 +73,23 @@ class UsersTab : UserControl
         try
         {
             var name = f.Text_("user");
+            var newRoleId = f.Combo("role");
+            var newActive = f.Check("active");
+            var stillActiveAdmin = newActive && roles.First(r => r.Key == newRoleId).Value == "Admin";
+
             if (db.Users.Any(x => x.Username == name && x.UserId != u.UserId))
                 throw new InvalidOperationException("Tài khoản đã tồn tại.");
-            if (u.UserId == _currentUserId && !f.Check("active"))
+            if (u.UserId == _currentUserId && !newActive)
                 throw new InvalidOperationException("Không thể tự khóa tài khoản đang đăng nhập.");
+            if (u.UserId == _currentUserId && wasActiveAdmin && !stillActiveAdmin)
+                throw new InvalidOperationException("Không thể tự hạ quyền của chính mình.");
+            if (wasActiveAdmin && !stillActiveAdmin && OtherActiveAdmins(db, u.UserId) == 0)
+                throw new InvalidOperationException("Phải còn ít nhất một Admin đang hoạt động.");
 
             u.Username = name;
             u.FullName = f.Text_("name");
-            u.RoleId = f.Combo("role");
-            u.IsActive = f.Check("active");
+            u.RoleId = newRoleId;
+            u.IsActive = newActive;
             if (f.Text_("pass") != "") u.PasswordHash = PasswordHasher.Hash(f.Text_("pass"));
 
             if (!id.HasValue) db.Users.Add(u);
@@ -93,7 +109,11 @@ class UsersTab : UserControl
         try
         {
             using var db = Db.Create();
-            db.Users.Remove(db.Users.Find(id.Value));
+            var u = db.Users.Include(x => x.Role).First(x => x.UserId == id.Value);
+            if (u.IsActive && u.Role.RoleName == "Admin" && OtherActiveAdmins(db, u.UserId) == 0)
+                throw new InvalidOperationException("Phải còn ít nhất một Admin đang hoạt động, không thể xóa Admin cuối cùng.");
+
+            db.Users.Remove(u);
             db.SaveChanges();
             LoadData();
         }

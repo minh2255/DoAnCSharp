@@ -71,8 +71,16 @@ class OrdersTab : UserControl
         var id = UI.SelectedId(_g);
         if (id == null) return;
 
-        using var f = new FormDialog("Đổi trạng thái đơn #" + id);
-        f.AddChoice("st", "Trạng thái mới", OrderStatus.All, (string)_g.CurrentRow.Cells["TT"].Value);
+        var current = (string)_g.CurrentRow.Cells["TT"].Value;
+        var options = OrderStatus.Next(current);
+        if (options.Length == 0)
+        {
+            UI.Info($"Đơn đang ở trạng thái '{current}' nên không thể đổi nữa.");
+            return;
+        }
+
+        using var f = new FormDialog($"Đổi trạng thái đơn #{id} (hiện tại: {current})");
+        f.AddChoice("st", "Chuyển sang", options, options[0]);
         f.Finish();
         if (f.ShowDialog(this) != DialogResult.OK) return;
 

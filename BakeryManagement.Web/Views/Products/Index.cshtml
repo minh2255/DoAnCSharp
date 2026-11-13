@@ -1,23 +1,29 @@
 @model ProductListVm
 @{ ViewData["Title"] = "Sản phẩm"; }
 
-<div class="row">
-  <!-- Cột trái: danh mục -->
-  <div class="col-md-3 mb-3">
-    <div class="list-group">
-      <a class="list-group-item @(Model.CategoryId == null ? "active" : "")"
-         asp-action="Index" asp-route-q="@Model.Keyword">Tất cả</a>
-      @foreach (var c in Model.Categories)
-      {
-          <a class="list-group-item @(Model.CategoryId == c.CategoryId ? "active" : "")"
-             asp-action="Index" asp-route-cat="@c.CategoryId" asp-route-q="@Model.Keyword">@c.Name</a>
-      }
-    </div>
-  </div>
+<div class="page-title">
+  <h1>Sản phẩm</h1>
+  <p>Chọn món bạn thích, xem chi tiết rồi thêm vào giỏ.</p>
+</div>
 
-  <!-- Cột phải: tìm kiếm + lưới sản phẩm -->
-  <div class="col-md-9">
-    <form method="get" class="input-group mb-3">
+<div class="row g-4">
+  <aside class="col-lg-3">
+    <div class="side-card">
+      <h6>Danh mục</h6>
+      <div class="side-list">
+        <a class="@(Model.CategoryId == null ? "active" : "")" asp-action="Index" asp-route-q="@Model.Keyword">Tất cả</a>
+        @foreach (var c in Model.Categories)
+        {
+          var v = ProductVisual.For(c.Name);
+          <a class="@(Model.CategoryId == c.CategoryId ? "active" : "")"
+             asp-action="Index" asp-route-cat="@c.CategoryId" asp-route-q="@Model.Keyword"><span>@v.Emoji</span> @c.Name</a>
+        }
+      </div>
+    </div>
+  </aside>
+
+  <div class="col-lg-9">
+    <form method="get" class="search-bar">
       <input type="hidden" name="cat" value="@Model.CategoryId" />
       <input class="form-control" name="q" value="@Model.Keyword" placeholder="Tìm theo tên hoặc mô tả..." />
       <button class="btn btn-brand">Tìm kiếm</button>
@@ -25,26 +31,29 @@
 
     @if (!Model.Items.Any())
     {
-        <div class="alert alert-info">Không tìm thấy sản phẩm phù hợp.</div>
+      <div class="empty"><div>🔍</div><b>Không tìm thấy sản phẩm phù hợp</b><span>Thử từ khóa khác hoặc chọn danh mục khác.</span></div>
     }
 
-    <div class="row row-cols-2 row-cols-lg-3 g-3">
+    <div class="row row-cols-2 row-cols-md-3 g-3 g-lg-4">
       @foreach (var p in Model.Items)
       {
-          <div class="col"><partial name="_ProductCard" model="p" /></div>
+        <div class="col"><partial name="_ProductCard" model="p" /></div>
       }
     </div>
 
-    <nav class="mt-4">
-      <ul class="pagination justify-content-center">
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
+    @if (Model.TotalPages > 1)
+    {
+      <nav class="mt-4" aria-label="Phân trang">
+        <ul class="pagination justify-content-center">
+          @for (int i = 1; i <= Model.TotalPages; i++)
+          {
             <li class="page-item @(i == Model.Page ? "active" : "")">
               <a class="page-link" asp-action="Index" asp-route-q="@Model.Keyword"
                  asp-route-cat="@Model.CategoryId" asp-route-page="@i">@i</a>
             </li>
-        }
-      </ul>
-    </nav>
+          }
+        </ul>
+      </nav>
+    }
   </div>
 </div>

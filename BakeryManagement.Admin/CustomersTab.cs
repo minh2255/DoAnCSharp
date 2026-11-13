@@ -14,8 +14,8 @@ class CustomersTab : UserControl
         bar.Controls.Add(_q); bar.Controls.Add(UI.Btn("Tìm", (s, e) => LoadData()));
         bar.Controls.Add(UI.Btn("🔒 Khóa / 🔓 Mở khóa", (s, e) => Toggle()));
         bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));      
-        Controls.Add(_g); Controls.Add(bar);
-        Controls.Add(_g); Controls.Add(bar);
+        Controls.Add(_g); 
+        Controls.Add(bar);
         _q.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) LoadData(); };
         LoadData();
     }

@@ -1,27 +1,57 @@
-﻿@model List<Product>
+@model List<Product>
 @{
     ViewData["Title"] = "Trang chủ";
     var cats = (List<Category>)ViewBag.Categories;
 }
 
-<div class="hero mb-4">
-  <h1 class="fw-bold">Bánh tươi nướng mỗi ngày 🥖</h1>
-  <p class="lead">Đặt bánh trực tuyến – giao tận nơi, đảm bảo nóng giòn và tươi ngon.</p>
-  <a class="btn btn-brand btn-lg" asp-controller="Products" asp-action="Index">Xem tất cả sản phẩm</a>
-</div>
+<section class="hero">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <span class="eyebrow">Nướng mới mỗi sáng</span>
+      <h1>Bánh ngọt ngào,<br />giao tận nhà bạn</h1>
+      <p class="lead">Từ bánh kem sinh nhật đến chiếc croissant giòn tan, tất cả đều được nướng trong ngày. Chọn món, đặt hàng và thanh toán khi nhận.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-brand btn-lg" asp-controller="Products" asp-action="Index">Xem tất cả sản phẩm</a>
+        <a class="btn btn-ghost btn-lg" asp-controller="Orders" asp-action="Index">Đơn hàng của tôi</a>
+      </div>
+    </div>
+    <div class="col-lg-5 d-none d-lg-block">
+      <div class="hero-art" aria-hidden="true">
+        <span class="blob"></span>
+        <span class="e e1">🎂</span><span class="e e2">🥐</span><span class="e e3">🍪</span><span class="e e4">🥖</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h4 class="mb-3">Danh mục</h4>
-<div class="mb-4">
-  @foreach (var c in cats)
-  {
-      <a class="btn btn-outline-secondary me-2 mb-2" asp-controller="Products" asp-action="Index" asp-route-cat="@c.CategoryId">@c.Name</a>
-  }
-</div>
+<section class="features">
+  <div class="feature"><span>🔥</span><div><b>Tươi mỗi ngày</b><small>Nướng mới theo từng ca</small></div></div>
+  <div class="feature"><span>🚚</span><div><b>Giao tận nơi</b><small>Nhập địa chỉ là có bánh</small></div></div>
+  <div class="feature"><span>💵</span><div><b>Thanh toán khi nhận</b><small>Không cần thẻ, không lo rủi ro</small></div></div>
+</section>
 
-<h4 class="mb-3">Sản phẩm mới</h4>
-<div class="row row-cols-2 row-cols-md-4 g-3">
-  @foreach (var p in Model)
-  {
+<section class="block">
+  <div class="block-head"><h2>Danh mục</h2></div>
+  <div class="cat-chips">
+    @foreach (var c in cats)
+    {
+      var v = ProductVisual.For(c.Name);
+      <a class="cat-chip" asp-controller="Products" asp-action="Index" asp-route-cat="@c.CategoryId">
+        <span class="cat-ico @v.Tone">@v.Emoji</span>@c.Name
+      </a>
+    }
+  </div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <h2>Sản phẩm mới</h2>
+    <a asp-controller="Products" asp-action="Index">Xem tất cả →</a>
+  </div>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-4">
+    @foreach (var p in Model)
+    {
       <div class="col"><partial name="_ProductCard" model="p" /></div>
-  }
-</div>
+    }
+  </div>
+</section>

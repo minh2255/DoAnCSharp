@@ -1,37 +1,30 @@
 @model Product
-
-<div class="card product-card h-100">
-    <a class="text-decoration-none"
-       asp-controller="Products"
-       asp-action="Details"
-       asp-route-id="@Model.ProductId">
-
-        <div class="product-img">
-            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-                <img src="@Model.ImageUrl" alt="@Model.Name" />
-            }
-            else
-            {
-                <span>🍰</span>
-            }
-        </div>
-    </a>
-
-    <div class="card-body d-flex flex-column">
-        <small class="text-muted">@Model.Category?.Name</small>
-
-        <h6 class="card-title">
-            <a class="text-decoration-none text-dark"
-               asp-controller="Products"
-               asp-action="Details"
-               asp-route-id="@Model.ProductId">
-                @Model.Name
-            </a>
-        </h6>
-
-        <div class="price mb-2">
-            @Model.Price.ToString("N0") ₫
-        </div>
+@{
+    var v = ProductVisual.For(Model.Category?.Name);
+    var soldOut = Model.Stock <= 0;
+    var low = Model.Stock > 0 && Model.Stock <= 5;
+}
+<article class="pcard h-100">
+  <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" class="pcard-media @v.Tone" aria-label="@Model.Name">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.Name" />
+    }
+    else
+    {
+        <span class="pcard-emoji">@v.Emoji</span>
+    }
+    @if (soldOut) { <span class="pcard-flag flag-out">Hết hàng</span> }
+    else if (low) { <span class="pcard-flag flag-low">Sắp hết</span> }
+  </a>
+  <div class="pcard-body">
+    <span class="pcard-cat">@Model.Category?.Name</span>
+    <h3 class="pcard-title">
+      <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId">@Model.Name</a>
+    </h3>
+    <div class="pcard-foot">
+      <span class="price">@Model.Price.ToString("N0") ₫</span>
+      <a class="pcard-go" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" aria-label="Xem @Model.Name">→</a>
     </div>
-</div>
+  </div>
+</article>

@@ -79,6 +79,17 @@ public static class OrderStatus
     public const string Completed = "Hoàn thành";
     public const string Cancelled = "Đã hủy";
     public static readonly string[] All = { Pending, Preparing, Delivering, Completed, Cancelled };
+
+    // Các trạng thái được phép chuyển tới từ trạng thái hiện tại
+    public static string[] Next(string current) => current switch
+    {
+        Pending => new[] { Preparing, Cancelled },
+        Preparing => new[] { Delivering, Cancelled },
+        Delivering => new[] { Completed, Cancelled },
+        _ => Array.Empty<string>()        // Hoàn thành hoặc Đã hủy: không đổi nữa
+    };
+
+    public static bool CanChange(string from, string to) => Next(from).Contains(to);
 }
 
 public class Order
