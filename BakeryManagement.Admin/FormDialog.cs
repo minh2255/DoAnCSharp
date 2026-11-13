@@ -41,7 +41,17 @@ class FormDialog : Form
             ValueMember = "Key",
             DataSource = items
         };
-        if (selected.HasValue) cb.SelectedValue = selected.Value;
+
+        // Chỉ chọn mục khi hộp đã có dữ liệu; làm lại khi hộp được tạo/hiện ra
+        void Apply()
+        {
+            if (!selected.HasValue || cb.Items.Count == 0) return;
+            var idx = items.FindIndex(i => i.Key == selected.Value);
+            if (idx >= 0 && idx < cb.Items.Count) cb.SelectedIndex = idx;
+        }
+        cb.HandleCreated += (s, e) => Apply();
+        cb.VisibleChanged += (s, e) => { if (cb.Visible) Apply(); };
+
         Row(key, label, cb);
     }
 
