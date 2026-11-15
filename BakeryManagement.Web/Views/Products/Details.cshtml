@@ -46,7 +46,7 @@
     {
       <form asp-controller="Cart" asp-action="Add" method="post" class="buy-box">
         <input type="hidden" name="id" value="@Model.ProductId" />
-        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+        <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
 
         <label class="form-label fw-semibold" for="qty">Số lượng</label>
         <div class="qty">
@@ -61,6 +61,8 @@
         </div>
       </form>
     }
+
+    <a asp-action="Index" asp-route-q="@ViewBag.BackQ" asp-route-cat="@ViewBag.BackCat" asp-route-page="@ViewBag.BackPage" class="btn btn-outline-secondary btn-sm mt-3">← Quay lại danh sách</a>
 
     <ul class="perks">
       <li>🔥 Nướng mới trong ngày</li>

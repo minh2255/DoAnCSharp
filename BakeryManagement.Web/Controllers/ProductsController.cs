@@ -28,9 +28,14 @@ public class ProductsController : Controller
         });
     }
 
-    public IActionResult Details(int id)
+    // q, cat, page: bộ lọc của trang danh sách mà khách vừa rời đi, để nút "Quay lại danh sách" dựng lại đúng kết quả.
+    public IActionResult Details(int id, string q, int? cat, int page = 1)
     {
         var p = _products.Get(id);
-        return p == null || !p.IsActive ? NotFound() : View(p);
+        if (p == null || !p.IsActive) return NotFound();
+        ViewBag.BackQ = q;
+        ViewBag.BackCat = cat;
+        ViewBag.BackPage = page > 1 ? page : (int?)null;
+        return View(p);
     }
 }

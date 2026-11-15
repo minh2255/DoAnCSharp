@@ -3,9 +3,16 @@
     var v = ProductVisual.For(Model.Category?.Name);
     var soldOut = Model.Stock <= 0;
     var low = Model.Stock > 0 && Model.Stock <= 5;
+
+    // Khi thẻ nằm trong trang danh sách, gửi kèm bộ lọc hiện tại để trang chi tiết quay lại đúng kết quả.
+    var onList = (ViewContext.RouteData.Values["controller"] as string) == "Products";
+    var qs = Context.Request.Query;
+    string fq = onList && !string.IsNullOrEmpty(qs["q"]) ? qs["q"].ToString() : null;
+    int? fcat = onList && int.TryParse(qs["cat"], out var _c) ? _c : (int?)null;
+    int? fpage = onList && int.TryParse(qs["page"], out var _p) && _p > 1 ? _p : (int?)null;
 }
 <article class="pcard h-100">
-  <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" class="pcard-media @v.Tone" aria-label="@Model.Name">
+  <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" asp-route-q="@fq" asp-route-cat="@fcat" asp-route-page="@fpage" class="pcard-media @v.Tone" aria-label="@Model.Name">
     @if (!string.IsNullOrEmpty(Model.ImageUrl))
     {
         <img src="@Model.ImageUrl" alt="@Model.Name" />
@@ -20,11 +27,11 @@
   <div class="pcard-body">
     <span class="pcard-cat">@Model.Category?.Name</span>
     <h3 class="pcard-title">
-      <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId">@Model.Name</a>
+      <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" asp-route-q="@fq" asp-route-cat="@fcat" asp-route-page="@fpage">@Model.Name</a>
     </h3>
     <div class="pcard-foot">
       <span class="price">@Model.Price.ToString("N0") ₫</span>
-      <a class="pcard-go" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" aria-label="Xem @Model.Name">→</a>
+      <a class="pcard-go" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" asp-route-q="@fq" asp-route-cat="@fcat" asp-route-page="@fpage" aria-label="Xem @Model.Name">→</a>
     </div>
   </div>
 </article>
