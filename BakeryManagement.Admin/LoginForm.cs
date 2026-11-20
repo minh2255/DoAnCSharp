@@ -11,8 +11,9 @@ public class LoginForm : Form
 
     public LoginForm()
     {
-        Text = "Đăng nhập – Quản trị tiệm bánh";
-        ClientSize = new Size(400, 220);
+        Text = "Đăng nhập";
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(420, 230);
         StartPosition = FormStartPosition.CenterScreen;
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
@@ -26,8 +27,8 @@ public class LoginForm : Form
             Top = 18,
             AutoSize = true
         };
-        var ok = new Button { Text = "Đăng nhập", Left = 130, Top = 150, Width = 105, Height = 32 };
-        var exit = new Button { Text = "Thoát", Left = 245, Top = 150, Width = 105, Height = 32, DialogResult = DialogResult.Cancel };
+        var ok = new Button { Text = "Đăng nhập", Left = 130, Top = 150, Width = 125, Height = 34, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowOnly };
+        var exit = new Button { Text = "Thoát", Left = 265, Top = 150, Width = 95, Height = 34, DialogResult = DialogResult.Cancel };
 
         ok.Click += (s, e) => DoLogin();
         AcceptButton = ok;    // nhấn Enter = bấm Đăng nhập

@@ -69,7 +69,7 @@ class ProductsTab : UserControl
         f.AddCombo("cat", "Danh mục", cats, id.HasValue ? p.CategoryId : null);
         f.AddText("price", "Giá (₫)", p.Price.ToString("0"));
         f.AddText("stock", "Tồn kho", p.Stock.ToString());
-        f.AddText("img", "Link ảnh", p.ImageUrl);
+        f.AddImage("img", "Ảnh sản phẩm", p.ImageUrl);
         f.AddText("desc", "Mô tả", p.Description, multiline: true);
         f.AddCheck("active", "Đang bán", id.HasValue ? p.IsActive : true);
 

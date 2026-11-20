@@ -2,33 +2,37 @@ namespace BakeryManagement.Admin;
 
 class FormDialog : Form
 {
-    private int _y = 15;
+    private int _y;
+    // Quy đổi kích thước điểm ảnh theo độ phóng to màn hình (100% = 96 DPI) để không bị cắt chữ/nút
+    private int S(int v) => (int)Math.Round(v * DeviceDpi / 96.0);
     private readonly Dictionary<string, Control> _c = new();
     public Func<FormDialog, string> Validator;
 
     public FormDialog(string title)
     {
+        _y = S(15);
         Text = title;
         StartPosition = FormStartPosition.CenterParent;
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false; MinimizeBox = false; ShowInTaskbar = false;
-        ClientSize = new Size(470, 100);
+        ClientSize = new Size(S(470), S(100));
     }
 
     // Thêm một dòng: nhãn bên trái + ô nhập bên phải
     private void Row(string key, string label, Control c, int extra = 0)
     {
-        Controls.Add(new Label { Text = label, Left = 15, Top = _y + 4, Width = 120 });
-        c.Left = 140; c.Top = _y; c.Width = 310;
+        Controls.Add(new Label { Text = label, Left = S(15), Top = _y + S(4), Width = S(120), Height = S(24) });
+        c.Left = S(140); c.Top = _y; c.Width = S(310);
         Controls.Add(c);
         _c[key] = c;
-        _y += 34 + extra;
+        _y += S(34) + S(extra);
     }
 
-    public void AddText(string key, string label, string value = "", bool multiline = false, bool password = false)
+    public void AddText(string key, string label, string value = "", bool multiline = false, bool password = false, string hint = null)
     {
-        var t = new TextBox { Text = value ?? "", Multiline = multiline, UseSystemPasswordChar = password };
-        if (multiline) t.Height = 60;
+        // hint: dòng chữ mờ gợi ý hiện trong ô khi ô đang trống
+        var t = new TextBox { Text = value ?? "", Multiline = multiline, UseSystemPasswordChar = password, PlaceholderText = hint ?? "" };
+        if (multiline) t.Height = S(60);
         Row(key, label, t, multiline ? 26 : 0);
     }
 
@@ -63,6 +67,26 @@ class FormDialog : Form
         Row(key, label, cb);
     }
 
+    // Dòng chọn ảnh: ô hiển thị đường dẫn + nút "Chọn ảnh..." mở hộp thoại chọn tệp (không cần gõ link)
+    public void AddImage(string key, string label, string value)
+    {
+        var t = new TextBox { Text = value ?? "", ReadOnly = true };
+        var b = new Button { Text = "Chọn ảnh..." };
+        Controls.Add(new Label { Text = label, Left = S(15), Top = _y + S(4), Width = S(120), Height = S(24) });
+        t.Left = S(140); t.Top = _y; t.Width = S(205);
+        b.Left = S(350); b.Top = _y - S(1); b.Width = S(100); b.Height = S(30);
+        b.Click += (s, e) =>
+        {
+            using var dlg = new OpenFileDialog { Title = "Chọn ảnh sản phẩm", Filter = "Ảnh|*.jpg;*.jpeg;*.png;*.webp;*.gif" };
+            if (dlg.ShowDialog(this) != DialogResult.OK) return;
+            try { t.Text = ImageStore.Import(dlg.FileName); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Không chép được ảnh", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        };
+        Controls.Add(t); Controls.Add(b);
+        _c[key] = t;
+        _y += S(34);
+    }
+
     public void AddCheck(string key, string label, bool value) => Row(key, label, new CheckBox { Checked = value });
 
     // Các hàm đọc giá trị người dùng đã nhập
@@ -76,8 +100,8 @@ class FormDialog : Form
     // Gọi sau khi thêm hết ô nhập: tạo nút Lưu/Hủy và chỉnh kích thước form
     public void Finish()
     {
-        var ok = new Button { Text = "Lưu", Left = 270, Top = _y + 10, Width = 85 };
-        var cancel = new Button { Text = "Hủy", Left = 365, Top = _y + 10, Width = 85, DialogResult = DialogResult.Cancel };
+        var ok = new Button { Text = "Lưu", Left = S(270), Top = _y + S(10), Width = S(85), Height = S(32) };
+        var cancel = new Button { Text = "Hủy", Left = S(365), Top = _y + S(10), Width = S(85), Height = S(32), DialogResult = DialogResult.Cancel };
 
         ok.Click += (s, e) =>
         {
@@ -92,6 +116,6 @@ class FormDialog : Form
 
         Controls.AddRange(new Control[] { ok, cancel });
         AcceptButton = ok; CancelButton = cancel;
-        ClientSize = new Size(470, _y + 55);
+        ClientSize = new Size(S(470), _y + S(60));
     }
 }

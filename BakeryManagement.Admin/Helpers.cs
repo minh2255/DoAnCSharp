@@ -61,3 +61,52 @@ static class UI
     public static bool Confirm(string m) =>
         MessageBox.Show(m, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 }
+
+// Lưu ảnh sản phẩm vào thư mục wwwroot/images/products của Web để Web hiển thị được.
+static class ImageStore
+{
+    // Ưu tiên khóa "ImagesFolder" trong appsettings.json; nếu không có thì dò ngược từ thư mục chạy để tìm BakeryManagement.Web/wwwroot.
+    public static string FindFolder()
+    {
+        try
+        {
+            var cfg = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "appsettings.json"))).RootElement;
+            if (cfg.TryGetProperty("ImagesFolder", out var p) && !string.IsNullOrWhiteSpace(p.GetString()))
+                return p.GetString();
+        }
+        catch { }
+
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        while (dir != null)
+        {
+            var wwwroot = Path.Combine(dir.FullName, "BakeryManagement.Web", "wwwroot");
+            if (Directory.Exists(wwwroot)) return Path.Combine(wwwroot, "images", "products");
+            dir = dir.Parent;
+        }
+        return null;
+    }
+
+    // Chép ảnh vào thư mục ảnh, trả về đường dẫn lưu vào ImageUrl, ví dụ /images/products/banh-moi.jpg
+    public static string Import(string sourceFile)
+    {
+        var folder = FindFolder()
+            ?? throw new InvalidOperationException(
+                "Không tìm thấy thư mục ảnh của Web. Hãy thêm dòng \"ImagesFolder\" vào appsettings.json của Admin, trỏ tới BakeryManagement.Web\\wwwroot\\images\\products.");
+        Directory.CreateDirectory(folder);
+
+        var ext = Path.GetExtension(sourceFile).ToLowerInvariant();
+        var name = Path.GetFileNameWithoutExtension(sourceFile);
+        var safe = new string(name.Select(c => char.IsLetterOrDigit(c) && c < 128 ? char.ToLowerInvariant(c) : '-').ToArray()).Trim('-');
+        if (safe == "") safe = "anh";
+
+        var file = safe + ext;
+        var i = 1;
+        var srcBytes = File.ReadAllBytes(sourceFile);
+        // Trùng tên mà nội dung khác thì đổi tên; trùng cả nội dung thì dùng lại tệp cũ
+        while (File.Exists(Path.Combine(folder, file)) && !File.ReadAllBytes(Path.Combine(folder, file)).AsSpan().SequenceEqual(srcBytes))
+            file = $"{safe}-{i++}{ext}";
+        var dest = Path.Combine(folder, file);
+        if (!File.Exists(dest)) File.WriteAllBytes(dest, srcBytes);
+        return "/images/products/" + file;
+    }
+}

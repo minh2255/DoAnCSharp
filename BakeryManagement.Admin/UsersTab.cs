@@ -57,7 +57,8 @@ class UsersTab : UserControl
         using var f = new FormDialog(id.HasValue ? "Sửa tài khoản" : "Thêm tài khoản");
         f.AddText("user", "Tài khoản", u.Username);
         f.AddText("name", "Họ tên", u.FullName);
-        f.AddText("pass", id.HasValue ? "Mật khẩu mới (để trống = giữ)" : "Mật khẩu", "", password: true);
+        f.AddText("pass", id.HasValue ? "Mật khẩu mới" : "Mật khẩu", "", password: true,
+            hint: id.HasValue ? "Để trống nếu giữ mật khẩu cũ" : "Tối thiểu 6 ký tự");
         f.AddCombo("role", "Quyền", roles, id.HasValue ? u.RoleId : null);
         f.AddCheck("active", "Hoạt động", id.HasValue ? u.IsActive : true);
 
