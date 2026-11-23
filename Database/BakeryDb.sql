@@ -119,19 +119,19 @@ SET IDENTITY_INSERT dbo.Categories OFF;
 
 SET IDENTITY_INSERT dbo.Products ON;
 INSERT dbo.Products (ProductId, Name, Description, Price, ImageUrl, Stock, IsActive, CategoryId) VALUES
- (1,  N'Bánh kem dâu tây', N'Bánh bông lan kem tươi phủ dâu tây Đà Lạt.', 350000, N'', 10, 1, 1),
- (2,  N'Bánh kem socola', N'Cốt bánh socola đậm vị, phủ ganache.', 320000, N'', 12, 1, 1),
- (3,  N'Bánh tiramisu', N'Tiramisu kiểu Ý với mascarpone và cà phê.', 45000, N'', 25, 1, 1),
- (4,  N'Bánh mì bơ tỏi', N'Bánh mì nướng bơ tỏi thơm giòn.', 20000, N'', 40, 1, 2),
- (5,  N'Bánh mì sữa', N'Mềm xốp, vị sữa nhẹ.', 15000, N'', 50, 1, 2),
- (6,  N'Bánh mì ruốc phô mai', N'Bánh mì ngọt mặn nhân ruốc và phô mai.', 25000, N'', 30, 1, 2),
- (7,  N'Croissant bơ', N'Croissant nướng với bơ Pháp, nhiều lớp.', 30000, N'', 35, 1, 3),
- (8,  N'Su kem', N'Vỏ su giòn, nhân kem vani.', 18000, N'', 60, 1, 3),
- (9,  N'Cupcake vani', N'Cupcake vani phủ kem bơ.', 25000, N'', 40, 1, 3),
- (10, N'Cookie socola chip', N'Cookie giòn ngoài mềm trong.', 15000, N'', 80, 1, 4),
- (11, N'Macaron hỗn hợp (hộp 6)', N'6 vị macaron ngẫu nhiên.', 180000, N'', 15, 1, 4),
- (12, N'Cà phê sữa', N'Cà phê phin sữa đặc.', 29000, N'', 100, 1, 5),
- (13, N'Trà đào cam sả', N'Trà đào thanh mát.', 35000, N'', 100, 1, 5);
+ (1,  N'Bánh kem dâu tây', N'Bánh bông lan kem tươi phủ dâu tây Đà Lạt.', 350000, N'/images/products/banh-kem-dau-tay.jpg', 10, 1, 1),
+ (2,  N'Bánh kem socola', N'Cốt bánh socola đậm vị, phủ ganache.', 320000, N'/images/products/banh-kem-socola.jpg', 12, 1, 1),
+ (3,  N'Bánh tiramisu', N'Tiramisu kiểu Ý với mascarpone và cà phê.', 45000, N'/images/products/banh-tiramisu.jpg', 25, 1, 1),
+ (4,  N'Bánh mì bơ tỏi', N'Bánh mì nướng bơ tỏi thơm giòn.', 20000, N'/images/products/banh-mi-bo-toi.jpg', 40, 1, 2),
+ (5,  N'Bánh mì sữa', N'Mềm xốp, vị sữa nhẹ.', 15000, N'/images/products/banh-mi-sua.jpg', 50, 1, 2),
+ (6,  N'Bánh mì ruốc phô mai', N'Bánh mì ngọt mặn nhân ruốc và phô mai.', 25000, N'/images/products/banh-mi-ruoc-pho-mai.jpg', 30, 1, 2),
+ (7,  N'Croissant bơ', N'Croissant nướng với bơ Pháp, nhiều lớp.', 30000, N'/images/products/croissant.jpg', 35, 1, 3),
+ (8,  N'Su kem', N'Vỏ su giòn, nhân kem vani.', 18000, N'/images/products/su-kem.jpg', 60, 1, 3),
+ (9,  N'Cupcake vani', N'Cupcake vani phủ kem bơ.', 25000, N'/images/products/cupcake-vani.jpg', 40, 1, 3),
+ (10, N'Cookie socola chip', N'Cookie giòn ngoài mềm trong.', 15000, N'/images/products/cookie-socola.jpg', 80, 1, 4),
+ (11, N'Macaron hỗn hợp (hộp 6)', N'6 vị macaron ngẫu nhiên.', 180000, N'/images/products/macaron.jpg', 15, 1, 4),
+ (12, N'Cà phê sữa', N'Cà phê phin sữa đặc.', 29000, N'/images/products/ca-phe-sua.jpg', 100, 1, 5),
+ (13, N'Trà đào cam sả', N'Trà đào thanh mát.', 35000, N'/images/products/tra-dao-cam-sa.jpg', 100, 1, 5);
 SET IDENTITY_INSERT dbo.Products OFF;
 GO
 /* Bảng Customers, Orders, OrderDetails để trống: khách hàng tự đăng ký trên Web. */
