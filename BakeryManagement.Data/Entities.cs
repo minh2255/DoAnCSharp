@@ -92,6 +92,22 @@ public static class OrderStatus
     public static bool CanChange(string from, string to) => Next(from).Contains(to);
 }
 
+// Phương thức thanh toán của đơn hàng
+public static class PaymentMethods
+{
+    public const string Cod = "COD";          // thanh toán khi nhận hàng
+    public const string Online = "Online";    // thanh toán trực tuyến (cổng mô phỏng)
+    public static string Text(string m) => m == Online ? "Trực tuyến" : "Khi nhận hàng";
+}
+
+// Trạng thái thanh toán của đơn hàng
+public static class PaymentStatuses
+{
+    public const string Unpaid = "Chưa thanh toán";
+    public const string Paid = "Đã thanh toán";
+    public const string Refund = "Cần hoàn tiền";   // đơn đã trả tiền trực tuyến nhưng bị hủy
+}
+
 public class Order
 {
     public int OrderId { get; set; }
@@ -104,6 +120,12 @@ public class Order
     [Required, StringLength(250)] public string ShippingAddress { get; set; }
     [Required, StringLength(20)] public string Phone { get; set; }
     [StringLength(300)] public string Note { get; set; }
+    [Required, StringLength(20)] public string PaymentMethod { get; set; } = PaymentMethods.Cod;
+    [Required, StringLength(30)] public string PaymentStatus { get; set; } = PaymentStatuses.Unpaid;
+    public DateTime? PaidAt { get; set; }                               // thời điểm thanh toán
+    // Dấu ? = cho phép NULL (đơn chưa thanh toán thì chưa có mã giao dịch).
+    // Project Data bật Nullable nên kiểu string không có ? sẽ bị EF coi là bắt buộc và lỗi khi đọc giá trị NULL.
+    [StringLength(50)] public string? TransactionCode { get; set; }     // mã giao dịch do cổng trả về
 
     public List<OrderDetail> Details { get; set; } = new();
 

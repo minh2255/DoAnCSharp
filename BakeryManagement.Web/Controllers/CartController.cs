@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
 using BakeryManagement.Data;
 using BakeryManagement.Web.Models;
@@ -93,6 +93,15 @@ public class CartController : Controller
         var lines = Lines();
         if (lines.Count == 0) return RedirectToAction(nameof(Index));
 
+        // Vừa hủy thanh toán trực tuyến: điền lại thông tin khách đã nhập trước đó
+        var pending = PendingCheckout();
+        if (pending != null)
+        {
+            HttpContext.Session.Remove("checkout");
+            pending.Lines = lines;
+            return View(pending);
+        }
+
         var c = _auth.GetCustomer(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
         return View(new CheckoutVm { Lines = lines, Address = c?.Address, Phone = c?.Phone });  // điền sẵn thông tin
     }
@@ -104,12 +113,21 @@ public class CartController : Controller
         if (vm.Lines.Count == 0) return RedirectToAction(nameof(Index));
         if (!ModelState.IsValid) return View(vm);
 
+        // Thanh toán trực tuyến: CHƯA tạo đơn. Lưu tạm thông tin giao hàng rồi chuyển sang cổng thanh toán.
+        // Đơn chỉ được tạo khi cổng báo thanh toán thành công (xem ConfirmPayment).
+        if (vm.PaymentMethod == PaymentMethods.Online)
+        {
+            HttpContext.Session.SetString("checkout", JsonSerializer.Serialize(
+                new CheckoutVm { Address = vm.Address, Phone = vm.Phone, Note = vm.Note, PaymentMethod = vm.PaymentMethod }));
+            return RedirectToAction(nameof(Payment));
+        }
+
         try
         {
             var cid = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var order = _orders.PlaceOrder(cid,
                 vm.Lines.Select(l => (l.Product.ProductId, l.Qty)).ToList(),
-                vm.Address, vm.Phone, vm.Note);
+                vm.Address, vm.Phone, vm.Note, PaymentMethods.Cod);
 
             SaveCart(new List<CartItem>());   // đặt xong thì làm rỗng giỏ
             TempData["Success"] = $"Đặt hàng thành công! Mã đơn #{order.OrderId}.";
@@ -120,5 +138,61 @@ public class CartController : Controller
             ModelState.AddModelError("", ex.Message);
             return View(vm);
         }
+    }
+
+    // ===================== CỔNG THANH TOÁN MÔ PHỎNG =====================
+    // Đi theo luồng của cổng thật (VNPay, MoMo...): Web chuyển khách sang cổng -> khách xác nhận
+    // hoặc hủy -> cổng trả kết quả về Web. Không kết nối ngân hàng, không trừ tiền thật.
+
+    private CheckoutVm PendingCheckout()
+    {
+        var s = HttpContext.Session.GetString("checkout");
+        return s == null ? null : JsonSerializer.Deserialize<CheckoutVm>(s);
+    }
+
+    // Trang cổng thanh toán
+    [Authorize, HttpGet]
+    public IActionResult Payment()
+    {
+        var info = PendingCheckout();
+        var lines = Lines();
+        if (info == null || lines.Count == 0) return RedirectToAction(nameof(Index));
+        info.Lines = lines;
+        return View(info);
+    }
+
+    // Cổng báo thanh toán thành công: lúc này mới tạo đơn (kiểm tra và trừ tồn kho trong transaction)
+    [Authorize, HttpPost, ValidateAntiForgeryToken]
+    public IActionResult ConfirmPayment()
+    {
+        var info = PendingCheckout();
+        var lines = Lines();
+        if (info == null || lines.Count == 0) return RedirectToAction(nameof(Index));
+
+        try
+        {
+            var cid = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var txn = $"MOCK{DateTime.Now:yyyyMMddHHmmss}{Random.Shared.Next(100, 999)}";   // mã giao dịch giả lập
+            var order = _orders.PlaceOrder(cid, lines.Select(l => (l.Product.ProductId, l.Qty)).ToList(),
+                                           info.Address, info.Phone, info.Note, PaymentMethods.Online, txn);
+            SaveCart(new List<CartItem>());
+            HttpContext.Session.Remove("checkout");
+            TempData["Success"] = $"Thanh toán thành công! Mã đơn #{order.OrderId}, mã giao dịch {txn}.";
+            return RedirectToAction("Index", "Orders");
+        }
+        catch (InvalidOperationException ex)   // ví dụ: vừa có người mua hết hàng
+        {
+            TempData["Error"] = "Chưa thể đặt hàng: " + ex.Message;
+            return RedirectToAction(nameof(Index));
+        }
+    }
+
+    // Khách hủy trên cổng: không tạo đơn, quay lại trang Thanh toán với thông tin đã nhập
+    // để khách chọn lại phương thức (ví dụ chuyển sang COD) hoặc thử thanh toán lại
+    [Authorize, HttpPost, ValidateAntiForgeryToken]
+    public IActionResult CancelPayment()
+    {
+        TempData["Error"] = "Bạn đã hủy thanh toán. Đơn hàng chưa được tạo, bạn có thể chọn lại phương thức thanh toán.";
+        return RedirectToAction(nameof(Checkout));
     }
 }

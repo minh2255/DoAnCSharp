@@ -56,6 +56,10 @@ public class CheckoutVm
     public string Phone { get; set; }
 
     public string Note { get; set; }
+
+    // "COD" = thanh toán khi nhận hàng, "Online" = thanh toán trực tuyến
+    public string PaymentMethod { get; set; } = BakeryManagement.Data.PaymentMethods.Cod;
+
     public List<CartLine> Lines { get; set; } = new();
 }
 

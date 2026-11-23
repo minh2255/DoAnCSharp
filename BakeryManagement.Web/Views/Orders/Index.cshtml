@@ -25,7 +25,12 @@
       }
     </ul>
     <div class="card-footer d-flex justify-content-between align-items-center">
-      <span>Giao đến: @o.ShippingAddress – @o.Phone</span>
+      <span>
+        Giao đến: @o.ShippingAddress – @o.Phone<br />
+        <small class="text-muted">Thanh toán: @PaymentMethods.Text(o.PaymentMethod) –</small>
+        @* Với khách, trạng thái "Cần hoàn tiền" (dành cho cửa hàng) được hiển thị là "Đang hoàn tiền" *@
+        <span class="badge @(o.PaymentStatus == PaymentStatuses.Paid ? "bg-success" : o.PaymentStatus == PaymentStatuses.Refund ? "bg-info text-dark" : "bg-secondary")">@(o.PaymentStatus == PaymentStatuses.Refund ? "Đang hoàn tiền" : o.PaymentStatus)</span>
+      </span>
       <span>
         <b class="price">@o.Total.ToString("N0") ₫</b>
         @if (o.Status == OrderStatus.Pending)

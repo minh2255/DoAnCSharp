@@ -1,10 +1,25 @@
-﻿namespace BakeryManagement.Data;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace BakeryManagement.Data;
 
 public static class DbInitializer
 {
     public static void Seed(BakeryDbContext db)
     {
         db.Database.EnsureCreated();
+
+        // Nâng cấp CSDL tạo từ trước khi có chức năng thanh toán: thêm các cột còn thiếu vào bảng Orders.
+        // EnsureCreated không tự thêm cột cho CSDL đã có, nên kiểm tra và thêm bằng lệnh SQL.
+        db.Database.ExecuteSqlRaw(@"
+IF COL_LENGTH('dbo.Orders', 'PaymentMethod') IS NULL
+BEGIN
+    ALTER TABLE dbo.Orders ADD
+        PaymentMethod   NVARCHAR(20) NOT NULL CONSTRAINT DF_Orders_PaymentMethod DEFAULT N'COD',
+        PaymentStatus   NVARCHAR(30) NOT NULL CONSTRAINT DF_Orders_PaymentStatus DEFAULT N'Chưa thanh toán',
+        PaidAt          DATETIME2 NULL,
+        TransactionCode NVARCHAR(50) NULL;
+    EXEC(N'UPDATE dbo.Orders SET PaymentStatus = N''Đã thanh toán'', PaidAt = OrderDate WHERE Status = N''Hoàn thành''');
+END");
 
         // Vai tro
         if (!db.Roles.Any())

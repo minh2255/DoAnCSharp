@@ -7,10 +7,15 @@ public class OrderService
     private readonly BakeryDbContext _db;
     public OrderService(BakeryDbContext db) => _db = db;
 
+    // paymentMethod: COD (trả khi nhận) hoặc Online (đã trả qua cổng, kèm mã giao dịch)
     public Order PlaceOrder(int customerId, List<(int ProductId, int Qty)> items,
-                            string address, string phone, string note)
+                            string address, string phone, string note,
+                            string paymentMethod = PaymentMethods.Cod, string? transactionCode = null)
     {
         if (items.Count == 0) throw new InvalidOperationException("Giỏ hàng trống.");
+        if (paymentMethod != PaymentMethods.Cod && paymentMethod != PaymentMethods.Online)
+            throw new InvalidOperationException("Phương thức thanh toán không hợp lệ.");
+        var paidOnline = paymentMethod == PaymentMethods.Online;
 
         using var tx = _db.Database.BeginTransaction();   // bắt đầu transaction
 
@@ -21,7 +26,12 @@ public class OrderService
             Phone = phone,
             Note = note ?? "",
             OrderDate = DateTime.Now,
-            Status = OrderStatus.Pending
+            Status = OrderStatus.Pending,
+            PaymentMethod = paymentMethod,
+            // Đơn trực tuyến chỉ được tạo SAU KHI cổng báo thanh toán thành công nên ghi luôn là đã thanh toán
+            PaymentStatus = paidOnline ? PaymentStatuses.Paid : PaymentStatuses.Unpaid,
+            PaidAt = paidOnline ? DateTime.Now : null,
+            TransactionCode = paidOnline ? transactionCode : null
         };
 
         foreach (var (pid, qty) in items)
@@ -76,6 +86,17 @@ public class OrderService
         if (!OrderStatus.CanChange(o.Status, newStatus))
             throw new InvalidOperationException($"Không thể chuyển từ '{o.Status}' sang '{newStatus}'.");
 
+        // Đơn COD: hoàn thành nghĩa là đã thu tiền khi giao
+        if (newStatus == OrderStatus.Completed && o.PaymentStatus == PaymentStatuses.Unpaid)
+        {
+            o.PaymentStatus = PaymentStatuses.Paid;
+            o.PaidAt = DateTime.Now;
+        }
+
+        // Đơn đã trả tiền trực tuyến mà bị hủy thì đánh dấu cần hoàn tiền cho khách
+        if (newStatus == OrderStatus.Cancelled && o.PaymentStatus == PaymentStatuses.Paid)
+            o.PaymentStatus = PaymentStatuses.Refund;
+
         if (newStatus == OrderStatus.Cancelled)
             foreach (var d in o.Details)
                 _db.Products.Find(d.ProductId).Stock += d.Quantity;   // hoàn lại tồn kho
@@ -95,14 +116,23 @@ public class OrderService
     }
 
     // Thống kê cho Dashboard
-    public (int Orders, decimal Revenue, int LowStock, int Customers) Stats()
+    // Revenue: doanh thu ĐÃ THU = tổng các đơn có trạng thái thanh toán "Đã thanh toán"
+    //          (đơn trực tuyến đã trả + đơn COD đã hoàn thành).
+    // Pending: giá trị đơn ĐANG XỬ LÝ = đơn chưa hoàn thành, chưa hủy và chưa thanh toán (tiền sắp thu).
+    // Đơn đã trả tiền mà bị hủy chuyển sang "Cần hoàn tiền" nên tự động không còn tính vào doanh thu.
+    public (int Orders, decimal Revenue, decimal Pending, int LowStock, int Customers) Stats()
     {
         var orders = _db.Orders.Count();
         var revenue = _db.OrderDetails
-            .Where(d => d.Order.Status != OrderStatus.Cancelled)
+            .Where(d => d.Order.PaymentStatus == PaymentStatuses.Paid)
+            .Select(d => (decimal?)(d.Quantity * d.UnitPrice)).Sum() ?? 0;
+        var pending = _db.OrderDetails
+            .Where(d => d.Order.Status != OrderStatus.Cancelled
+                     && d.Order.Status != OrderStatus.Completed
+                     && d.Order.PaymentStatus == PaymentStatuses.Unpaid)
             .Select(d => (decimal?)(d.Quantity * d.UnitPrice)).Sum() ?? 0;
         var low = _db.Products.Count(p => p.IsActive && p.Stock <= 5);
-        return (orders, revenue, low, _db.Customers.Count());
+        return (orders, revenue, pending, low, _db.Customers.Count());
     }
 
     public List<(string Name, int Qty)> TopProducts(int n = 5) =>

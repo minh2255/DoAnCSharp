@@ -81,6 +81,10 @@ CREATE TABLE dbo.Orders (
     ShippingAddress NVARCHAR(250) NOT NULL,
     Phone           NVARCHAR(20)  NOT NULL,
     Note            NVARCHAR(300) NOT NULL,
+    PaymentMethod   NVARCHAR(20)  NOT NULL CONSTRAINT DF_Orders_PaymentMethod DEFAULT N'COD',   -- COD | Online
+    PaymentStatus   NVARCHAR(30)  NOT NULL CONSTRAINT DF_Orders_PaymentStatus DEFAULT N'Chưa thanh toán',
+    PaidAt          DATETIME2(7)  NULL,
+    TransactionCode NVARCHAR(50)  NULL,
     CONSTRAINT FK_Orders_Customers_CustomerId FOREIGN KEY (CustomerId) REFERENCES dbo.Customers(CustomerId)
 );
 CREATE INDEX IX_Orders_CustomerId ON dbo.Orders(CustomerId);

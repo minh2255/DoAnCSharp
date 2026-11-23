@@ -7,7 +7,7 @@ class DashboardTab : UserControl
     private readonly Label _stats = new()
     {
         Dock = DockStyle.Top,
-        Height = 110,
+        AutoSize = true,                      // tự cao theo số dòng
         Font = new Font("Segoe UI", 14),
         Padding = new Padding(15)
     };
@@ -15,17 +15,19 @@ class DashboardTab : UserControl
 
     public DashboardTab()
     {
-        var hdr = new Label { 
-            Text = "Top sản phẩm bán chạy", 
-            Dock = DockStyle.Top, Height = 30, 
-            Font = new Font("Segoe UI", 11, FontStyle.Bold), 
-            Padding = new Padding(15, 5, 0, 0) 
+        var hdr = new Label
+        {
+            Text = "Top sản phẩm bán chạy",
+            Dock = DockStyle.Top,
+            Height = 30,
+            Font = new Font("Segoe UI", 11, FontStyle.Bold),
+            Padding = new Padding(15, 5, 0, 0)
         };
         var bar = UI.Bar();
         bar.Controls.Add(UI.Btn("↻ Làm mới", (s, e) => LoadData()));
-        Controls.Add(_top); 
-        Controls.Add(hdr); 
-        Controls.Add(_stats); 
+        Controls.Add(_top);
+        Controls.Add(hdr);
+        Controls.Add(_stats);
         Controls.Add(bar);
         LoadData();
     }
@@ -38,8 +40,10 @@ class DashboardTab : UserControl
             var s = new OrderService(db);
 
             var st = s.Stats();
-            _stats.Text = $"Tổng số đơn: {st.Orders}      Doanh thu: {st.Revenue:N0} ₫\n" +
-                          $"Khách hàng: {st.Customers}      Sản phẩm sắp hết (≤5): {st.LowStock}";
+            _stats.Text = $"Tổng số đơn: {st.Orders}      Khách hàng: {st.Customers}\n" +
+                          $"Doanh thu đã thu: {st.Revenue:N0} ₫\n" +
+                          $"Đơn đang xử lý (chưa thu tiền): {st.Pending:N0} ₫\n" +
+                          $"Sản phẩm sắp hết (≤5): {st.LowStock}";
 
             _top.Items.Clear();
             foreach (var (name, qty) in s.TopProducts())

@@ -43,11 +43,12 @@ class OrdersTab : UserControl
                 KH = o.Customer.FullName,
                 SDT = o.Phone,
                 Tong = o.Total.ToString("N0"),
-                TT = o.Status
+                TT = o.Status,
+                TTTT = $"{o.PaymentMethod} – {o.PaymentStatus}"   // ví dụ: COD – Chưa thanh toán
             }).ToList();
 
             UI.Headers(_g, ("Ma", "Mã đơn"), ("Ngay", "Ngày đặt"), ("KH", "Khách hàng"),
-                           ("SDT", "SĐT"), ("Tong", "Tổng tiền (₫)"), ("TT", "Trạng thái"));
+                           ("SDT", "SĐT"), ("Tong", "Tổng tiền (₫)"), ("TT", "Trạng thái"), ("TTTT", "Thanh toán"));
         }
         catch (Exception ex) { UI.Error(ex); }
     }
@@ -57,13 +58,21 @@ class OrdersTab : UserControl
         var id = UI.SelectedId(_g);
         if (id == null) return;
 
-        using var db = Db.Create();
-        var o = new OrderService(db).Get(id.Value);
-        var lines = string.Join("\n", o.Details.Select(d =>
-            $"  • {d.Product.Name} × {d.Quantity} = {d.Quantity * d.UnitPrice:N0} ₫"));
+        try
+        {
+            using var db = Db.Create();
+            var o = new OrderService(db).Get(id.Value);
+            if (o == null) { LoadData(); return; }
+            var lines = string.Join("\n", o.Details.Select(d =>
+                $"  • {d.Product.Name} × {d.Quantity} = {d.Quantity * d.UnitPrice:N0} ₫"));
 
-        UI.Info($"Đơn #{o.OrderId} – {o.Status}\nKhách: {o.Customer.FullName} ({o.Phone})\n" +
-                $"Địa chỉ: {o.ShippingAddress}\nGhi chú: {o.Note}\n\n{lines}\n\nTổng: {o.Total:N0} ₫");
+            UI.Info($"Đơn #{o.OrderId} – {o.Status}\nKhách: {o.Customer.FullName} ({o.Phone})\n" +
+                    $"Địa chỉ: {o.ShippingAddress}\nGhi chú: {o.Note}\n" +
+                    $"Thanh toán: {o.PaymentMethod} – {o.PaymentStatus}" +
+                    (o.TransactionCode != null ? $" (mã GD {o.TransactionCode})" : "") +
+                    $"\n\n{lines}\n\nTổng: {o.Total:N0} ₫");
+        }
+        catch (Exception ex) { UI.Error(ex); }
     }
 
     private void ChangeStatus()
